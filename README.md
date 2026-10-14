@@ -22,7 +22,15 @@ Additional data notes regarding this database include:
   - Subqueries, Recursive and Window functions.
   - Advanced Join techniques such as UNION and SELF JOIN's.
   - Data preparation for further analysis in RStudio.
-  
+
+## Files 📁
+- SQL CODE file
+  - **Database_Upload.sql** contains the read-in code for the raw database.
+  - **Data_Cleaning.sql** is the cleaning, trimming and data type converting into an easy to maipulate form.
+  - **Categorical_Mappings.sql** contains the code used to convert continuous and binary categorical data into numerical form for further Rstudio analysis.
+  - **SQL_script.sql** contains the quantitative exploration of the data.
+
 ## Limitations 🔒
 - The free version of DBVisualizer was used, therefore features exclusive to the Pro version were unavailable. 
   - Importing the original database was done by using [Query Planes' CSV to SQL Converter](https://queryplane.com/tools/csv-to-sql/postgresql/) which produced the table creation code.
+
