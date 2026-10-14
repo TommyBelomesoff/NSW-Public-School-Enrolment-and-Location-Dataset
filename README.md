@@ -19,6 +19,7 @@ Additional data notes regarding this database include:
   - Aggregation and Logical operation usage.
   - Subqueries, Recursive and Window functions.
   - Advanced Join techniques such as UNION and SELF JOIN's.
+  - Data preparation for further analysis in RStudio.
   
 ## Limitations 🔒
 - The free version of DBVisualizer was used, therefore features exclusive to the Pro version were unavailable. 
