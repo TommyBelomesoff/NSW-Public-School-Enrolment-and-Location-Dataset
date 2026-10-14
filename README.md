@@ -10,6 +10,8 @@ Additional data notes regarding this database include:
 - Schools with indigenous or Language-Backgrounds-other-than-English (*LBOTE*) student enrolment percentages equal to or less than 5 are suppressed and will have the respective data recorded as '*np*'.
 - Enrolment figures for schools providing part-time study will have such cases measured in relation to '*full-time equivalent*' units. Students studying less than 10 units will have their respective enrolment number recorded as; 0.1 x (*number of units studying*)
 - Due to data extraction and upload frequency, _FOEI_ and _ICSEA_ values are representative of previous years scores.
+- _ICSEA_ values are representative of the academic advantage enrolled students possess from community-based influences such as voluntary parent contributions, non-government funding support networks and other community resources. Higher ICSEA levels are indicative of higher student advantage levels, in addition to stronger academic performances from students.
+- _FOEI_ values are a measure of socio-educational advantage based on educational and occupational positions of parents, and is used for dictating government resource distribution to schools. Higher _FOEI_ values correlate to larger socio, economic and systemic barriers that a school community faces.
 
 ## Aim of this project 🎯
 - Explore the key characteristics affecting school enrolment figures.
