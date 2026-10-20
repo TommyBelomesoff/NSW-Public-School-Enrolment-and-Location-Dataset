@@ -15,7 +15,7 @@ FROM enrol_db_cleaned;
 
 SELECT * FROM enrolment_totals;
 
--- We see that there have been a total of 772481.7 full-time-equivalent students enrolled last year in a total of 2174 Schools post 
+-- We see that there have been a total of 772481.7 full-time-equivalent students enrolled last year in a total of 2174 Schools.
 
 ------------------------------------------------------
 
@@ -37,22 +37,6 @@ WHERE lbote_pct != 0;
 
 ------------------------------------------------------
 
--- Grouping Schools within 20km Radii buckets from Central Station, Sydney --
-
-SELECT CEILING(distance_from_syd_kms / 20) AS km_radii_within_syd_x20,
-       COUNT(distance_from_syd_kms) AS school_count,
-       ROUND(AVG(latest_year_enrolment_fte), 2) AS enrolment_fte_ave,
-       ROUND(AVG(lbote_pct), 2) AS lbote_pct_ave,
-       ROUND(AVG(indigenous_pct), 2) AS indigenous_pct_ave,
-       ROUND(AVG(icsea_value), 2) AS icsea_ave,
-       ROUND(AVG(foei_value), 2) AS foei_ave,
-       ROUND(AVG(school_age), 2) AS school_age_ave
-FROM enrol_db_cleaned
-GROUP BY 1
-ORDER BY 1 ASC;
-
-------------------------------------------------------
-
 -- Enrolment numbers, Percentages and Statistical figures by ASGS remoteness --
 
 SELECT asgs_remoteness,
@@ -68,8 +52,13 @@ GROUP BY 1
 ORDER BY 2 DESC;
 
 -- We can see that each statistical aggregate results decreases exponentially across the board as we increase remoteness level.
-
-
+   -- Therefore, remoteness does have a large effect on enrolment numbers in a very broad sense.
+   -- This opens up further potential study into what factors carry influence over areas in differing remoteness categories such as:
+        -- Ability to choose education facility.
+        -- Acessibility levels to general goods and services.
+        -- Socio-economic standing of families.
+        -- Population numbers such as rates of growth/decline.
+        
 ------------------------------------------------------
 
 -- Exploration of Schools within the 'Major Cities of Australia' asgs remoteness index --
@@ -101,7 +90,11 @@ ORDER BY 3 DESC;
         -- This implies that all schools within the North Sydney LGA are consistently highly-sought-after in terms of enrolment.
 -- Willoughby not only has the highest fte enrolment average, by also the highest standard deviation amongst all major city LGA's.
         -- This is also achieved whilst maintaining a very low school count similar to North Sydney.
-        -- The distribution of enrolment across all 10 schools in Willoughy must then be extremely skewed. 
+        -- The distribution of enrolment across all 10 schools in Willoughy is extremely skewed. 
+  
+-- The accessibility of each school geospatially and socio-economically should be considered when analysing the enrolment fte distributions here.
+        -- The higher density of schools within the 'Major Cities of Australia' remoteness level will provide families with more options for enrolment.
+                -- This may cause increased variation in enrolment figures between LGA's within this remoteness category.
 
 ------------------------------------------------------
 
@@ -111,6 +104,8 @@ DROP TABLE IF EXISTS schools_by_icsea;
 CREATE TABLE schools_by_icsea AS
 SELECT school_code,
        school_name,
+       selective_school,
+       latest_year_enrolment_fte,
        lga,
        asgs_remoteness,
        icsea_value,
@@ -127,7 +122,7 @@ SELECT school_code,
             END AS academic_advantage_level
 FROM enrol_db_cleaned
 WHERE icsea_value != 0
-ORDER BY 5 DESC;
+ORDER BY 7 DESC;
 
 SELECT * FROM schools_by_icsea;
 
@@ -137,6 +132,68 @@ FROM schools_by_icsea
 GROUP BY 1
 ORDER BY ARRAY_POSITION(array['Highly Advantaged', 'Advantaged', 'Neutral', 'Disadvantaged','Highly Disadvantaged'], academic_advantage_level);
 
+-- ICSEA values generally decrease in areas as remoteness levels increase, supporting an earlier descriptive analysis.
+        -- The top 9 highest ICSEA value schools are fully selective schools, which coincides with the strong correlation between ICSEA values and academic performance.
 -- Higher standard deviation values occur within the more extreme levels of academic advanatage.
-        -- This indicates that socio-educational levels of students and poorly distributed amongst the general enrolment populace and may open up further study into why this is so poorly distributed.
+        -- This indicates that socio-educational levels of students and poorly distributed amongst the general enrolment populace.
+        -- Opens up further study opportunities into why this is so poorly distributed within quantiles.
+                -- Selectivity of schools may contribute to the higher standard deviation within the first quantile.
+                
+------------------------------------------------------
 
+-- FOEI values based on LGA and Remoteness
+
+SELECT lga,
+       asgs_remoteness,
+       ROUND(AVG(foei_value), 2) AS foei_ave
+FROM enrol_db_cleaned
+GROUP BY 1, 2
+ORDER BY 3 DESC;
+
+--- LGA rankings based off average FOEI values closely resemble the inverse ranking of LGAS by ICSEA values.
+        -- This makes sense as the FOEI scale equates lower values with lower levels of socio, economic and systemic barriers.
+-- Lets focus on the 5 LGA's with the highest FOEI values.
+
+SELECT *
+FROM enrol_db_cleaned
+WHERE lga IN ('Coonamble', 'Brewarrina', 'Moree Plains', 'Kyogle', 'Central Darling')
+ORDER BY foei_value DESC;
+       
+-- Some immediate trends can be identified within the top 10 schools. Most schools within the highest 10 FOEI values:
+        -- Are Central/Community Schools
+        -- Possess extremely high indigenous fte percentage
+        -- Are within the 600-700 ICSEA value range, within the Highly Disadvantaged academic level.
+
+------------------------------------------------------
+
+-- Enrolment figures based on school-subtype and level_of_schooling
+
+SELECT school_subtype,
+       level_of_schooling,
+       COUNT(school_subtype) AS subtype_count,
+       ROUND(AVG(latest_year_enrolment_fte), 2) AS enrolment_ave
+FROM enrol_db_cleaned
+GROUP BY 1, 2
+ORDER BY 3 DESC;
+
+-- The most common School subtypes are K-6, 7-12, Pre-6, Med-High support and K-12.
+-- The schools with the highest enrolment averages are 7-12, 7-10, 11-12 and 10-12.
+   -- There seems to be a high enrolment average for secondary schools.
+-- Whats interesting is the extremely high Primary school count, yet their enrolment_ave is above the median of all enrolment averages.
+
+-- How are the top 5 most common school subtypes distributed within each asgs_remoteness category.
+
+SELECT asgs_remoteness,
+       COUNT(*) FILTER (WHERE school_subtype = 'Kindergarten to Year 6') AS k_6_Count,
+       COUNT(*) FILTER (WHERE school_subtype = 'Year 7 to Year 12') AS y7_12_Count,
+       COUNT(*) FILTER (WHERE school_subtype = 'Preschool to Year 6') AS Pre_6_Count,
+       COUNT(*) FILTER (WHERE school_subtype = 'Medium / High Support needs') AS MH_supp_Count,
+       COUNT(*) FILTER (WHERE school_subtype = 'Kindergarten to Year 12') AS k_12_Count
+FROM enrol_db_cleaned
+GROUP BY 1
+ORDER BY ARRAY_POSITION(array['Major Cities of Australia', 'Inner Regional Australia', 'Outer Regional Australia', 'Remote Australia', 'Very Remote Australia'], asgs_remoteness);
+
+-- The distribution of each school subtype largely matches their order in terms of total count.
+-- However, Kindergarten to Year 12 schools take up a larger proportion of schools in Outer regional and more remote areas.
+        -- This may indicate the value of educational facilities in remote areas of Australia, where accessability and educational coverage are seen as more influential on enrolment. 
+------------------------------
