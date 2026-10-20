@@ -14,8 +14,7 @@ Additional data notes regarding this database include:
 - _FOEI_ values are a measure of socio-educational advantage based on educational and occupational positions of parents, and is used for dictating government resource distribution to schools. Higher _FOEI_ values correlate to larger socio, economic and systemic barriers that a school community faces.
 
 ## Aim of this project 🎯
-- Explore the key characteristics affecting school enrolment figures.
-- Identify key trends amongst schools with high FOEI, ICSEA and enrolment fte numbers.
+- Explore and Identify key trends in this database.
 - Practice and showcase PostgreSQL skills such as:
   - Data cleaning, table creation and manipulation.
   - Aggregation and Logical operation usage.
