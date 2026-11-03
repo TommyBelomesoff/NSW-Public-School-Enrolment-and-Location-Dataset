@@ -1,26 +1,22 @@
-# Exploration of the '_NSW Government School Locations and Enrolment Numbers_' Database 🏫
+# Geographical and Socioeconomic Inequality in NSW Public Schools🏫
 
-This database houses information regarding all primary and secondary levels of educational facilities within New South Wales of Australia.
-Along with the master database, the master database dictionary is also accessible and contains extra information regarding each column and their meanings.
-
-The data contained in this database was extracted on 04/09/2026 and can be accessed [here](https://data.nsw.gov.au/data/dataset/nsw-education-nsw-public-schools-master-dataset).
+The database used was the **_Master dataset: NSW government school locations and student enrolment numbers_** extracted on 04/09/2026 and can be accessed [here](https://data.nsw.gov.au/data/dataset/nsw-education-nsw-public-schools-master-dataset). This dataset records information regarding all primary and secondary levels of educational facilities within New South Wales of Australia.
+Along with the master database, the master database dictionary is also accessible with the same link and contains extra information regarding each column and their meanings.
 
 
 ## Aim of this project 🎯
-- Explore and Identify key trends in this database.
+- Explore how Socioeconomic and Geographical factors affect school enrolment.
 - Practice and showcase PostgreSQL skills such as:
   - Data cleaning, table creation and manipulation.
   - Aggregation and Logical operation usage.
   - Subqueries, Recursive and Window functions.
   - Advanced Join techniques such as UNION and SELF JOIN's.
-  - Data preparation for further analysis in RStudio.
 
 ## Files 📁
 - SQL CODE file
-  - **Database_Upload.sql** contains the read-in code for the raw database.
-  - **Data_Cleaning.sql** is the cleaning, trimming and data type converting into an easy to maipulate form.
-  - **Categorical_Mappings.sql** contains the code used to convert continuous and binary categorical data into numerical form for further Rstudio analysis.
-  - **SQL_script.sql** contains the quantitative exploration of the data.
+  - **_Database_Upload.sql_** contains the read-in code for the raw database.
+  - **_Data_Cleaning.sql_** is the cleaning, trimming and data type converting into an easy to maipulate form.
+  - **_[Descriptive_Analysis.sql](https://github.com/TommyBelomesoff/NSW-Public-School-Enrolment-and-Location-Dataset/blob/main/SQL%20code/Descriptive_Analysis.sql)_** contains the quantitative exploration of the data.
 
 ## Limitations 🔒
 - The free version of DBVisualizer was used, therefore features exclusive to the Pro version were unavailable. 
