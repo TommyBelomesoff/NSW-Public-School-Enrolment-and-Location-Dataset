@@ -41,12 +41,4 @@ Along with the master database, the master database dictionary is also accessibl
   - Such datasets may include:
      - School specifications such as enrolment capacity, subject availability, staffing and average transport times for enrolled students.
      - FOEI and ICSEA datasets containing factors that affect these respective values.
-- My creating a map to convert categorical factors into a finite numerical values, we may export the cleaned database and perform simple linear regression using the following estimated regression equation:
-$$
-\begin{aligned}
-\log(1+\text{Enrolment}_i)
-&= \beta_0 + \beta_1\text{ICSEA}_i \\
-&\quad + \beta_2\text{Remoteness}_i \\
-&\quad + \beta_3\text{SchoolType}_i + \varepsilon_i
-\end{aligned}
-$$
+- My creating a map to convert categorical factors into a finite numerical values, we may export the cleaned database and perform simple linear regression.
