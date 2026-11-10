@@ -36,9 +36,12 @@ Along with the master database, the master database dictionary is also accessibl
   - Presented further research opportunities regarding enrolment numbers not included within the dataset.
 - Performed sample matching with schools of the same type, allowing for a more robust enrolment and socioeconomic comparisons to be made.
 
-## Improvements and Further Research Opportunities 🌱
+## Improvements, Self Critique and Further Research Opportunities 🌱
 - Joining this dataset with additional supporting datasets would allow for a more in depth exploration.
   - Such datasets may include:
      - School specifications such as enrolment capacity, subject availability, staffing and average transport times for enrolled students.
      - FOEI and ICSEA datasets containing factors that affect these respective values.
-- My creating a map to convert categorical factors into a finite numerical values, we may export the cleaned database and perform simple linear regression.
+- By creating a map to convert categorical factors into a finite numerical values, we may export the cleaned database and perform simple linear regression.
+- Due to the generality of this study, actionable business or social service strategies that may be extracted from this are limited.
+  - The above recommendation of applying supporting datasets would allow for a much more in depth analysis and open up more opportunities for practical insights.
+  - By including additional supporting datasets, quantitative analysis would become more robust while also increase in internal and external validity.
